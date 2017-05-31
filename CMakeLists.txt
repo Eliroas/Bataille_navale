@@ -9,7 +9,9 @@ find_package( PkgConfig REQUIRED )
 pkg_check_modules( MYPKG REQUIRED cpputest )
 include_directories( ${MYPKG_INCLUDE_DIRS} )
 
-ADD_EXECUTABLE( bataille.out src/bataille.cpp)
+ADD_EXECUTABLE( bataille.out src/bataille.cpp
+  src/Plateau.cpp)
+
 ADD_EXECUTABLE( main_test.out src/main_test.cpp)
 
 target_link_libraries( bataille.out ${MYPKG_LIBRARIES} )
