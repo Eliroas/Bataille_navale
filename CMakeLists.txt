@@ -21,6 +21,12 @@ ADD_EXECUTABLE( bataille.out src/bataille.cpp src/Plateau.cpp)
 
 ADD_EXECUTABLE( fenetre.out src/ig.cpp)
 
+<<<<<<< HEAD
+=======
+ADD_EXECUTABLE( bataille.out src/bataille.cpp
+  src/Plateau.cpp)
+
+>>>>>>> cb301f27e886bd4d2ee9c664dfa52193682a77b7
 ADD_EXECUTABLE( main_test.out src/main_test.cpp)
 
 target_link_libraries( bataille.out ${GTKMM_LIBRARIES} )
