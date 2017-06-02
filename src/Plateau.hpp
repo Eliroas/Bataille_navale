@@ -17,8 +17,11 @@ public:
   void initialiser() ;
   int getTaille() const;
   void afficher_plateau_console();
+  
   void PlacerBateau();
   bool verification_placement_bateau(int x, int y, int taille,int decalage_x,int decalage_y);
+
+  void afficher_flotte(std::vector<Bateau*>flotte);
 };
 
 

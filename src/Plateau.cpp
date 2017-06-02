@@ -81,7 +81,7 @@ void Plateau::afficher_plateau_console(){
 	std::cout << " B " ;
 	break;
     }
-      if(i%9==8){
+      if(i%getTaille()==getTaille()-1){
 	std::cout << std::endl;
       }
   }
@@ -174,7 +174,6 @@ void Plateau::PlacerBateau(){
 	break;
       case SUD :
 	decalage_x=0;
-
 	decalage_y=1;
 	break;
       case OUEST :
@@ -190,16 +189,16 @@ void Plateau::PlacerBateau(){
     std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<
       " et s'etend jusqu'en " << posX + decalage_x*(lon-1) << " , " << posY + decalage_y*(lon-1) << std::endl;
 
-    flotte_j1.push_back(new Bateau(posX,posY,lon,dir));
+    flotte_j1[j]= new Bateau(posX,posY,lon,dir);
     
     for(int k=0; k<lon; k++){
       plat_joueur1[posX +   (posY*getTaille())  +   decalage_y*getTaille()*k  + decalage_x*k  ]._state = BATEAU;
     }
-    
-    
+
     afficher_plateau_console();
-    
+
   }//fin du for =>passage a l'iteration suivante pour le bateau suivant
+  afficher_flotte(flotte_j1);
 }
 
 
@@ -219,4 +218,13 @@ bool Plateau::verification_placement_bateau(int x, int y, int taille,int decalag
   return true;
 }
 
-
+void Plateau::afficher_flotte(std::vector<Bateau*> flotte){
+  std::cout << "Entree dans la fonction afficher_flotte " <<std::endl;
+  for(unsigned int i=0; i<flotte.size();i++){
+    std::cout << " Bateau n° :" << i+1 << std::endl;
+    std::cout << " Se trouve en : " << flotte[i]->_x << " , " << flotte[i]->_y << std::endl;
+    std::cout << " De longueur :" << flotte[i]->_longueur << std::endl;
+    std::cout << " dans la direction : " << flotte[i]->_dir << std::endl;
+    std::cout << " et a ete touche : " << flotte[i]->_nbTouche << " fois " << std::endl;
+  }
+}
