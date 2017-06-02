@@ -14,7 +14,7 @@ void on_button_clicked_jouer()
   Gtk::Window fenetreJouer;
   fenetreJouer.set_title("Le Jeu");
   fenetreJouer.set_default_size(1080,720);
-  fenetreJouer.set_icon_from_file("/etudiants/tprunier/PROJET DES ZBOUBS/Bataille_navale/src/icone2.png");
+  fenetreJouer.set_icon_from_file("../img/icone2.png");
 
   Gtk::Table tableau(2, 2); //Création d'un tableau 
   
@@ -556,7 +556,7 @@ void on_button_clicked_options()
   // Modifier le titre de la fenetre
   fenetreOption.set_default_size(480,100);
   // Redimensionner la fenetre
-  fenetreOption.set_icon_from_file("/etudiants/tprunier/PROJET DES ZBOUBS/Bataille_navale/src/icone2.png");
+  fenetreOption.set_icon_from_file("../img/icone2.png");
   Gtk::HBox boiteMessage(false,10);
   // Creation du conteneur du message
   Gtk::Label message("Choix de la difficulté:");
@@ -603,7 +603,7 @@ int main(int argc, char* argv[]) {
   //redimmensionner la fenetre
 
   Gtk::HBox boiteImage(false,10);
-  Gtk::Image image("/etudiants/tprunier/PROJET DES ZBOUBS/Bataille_navale/src/bataille2.jpg");
+  Gtk::Image image("../img/bataille2.jpg");
   //Création d'une image à partir d'un fichier.
   boiteImage.add(image);
 
@@ -632,7 +632,7 @@ int main(int argc, char* argv[]) {
     fenetre.show_all(); 
 
   
-  fenetre.set_icon_from_file("/etudiants/tprunier/PROJET DES ZBOUBS/Bataille_navale/src/icone2.png");
+  fenetre.set_icon_from_file("../img/icone2.png");
   //icone du jeu
 
   
