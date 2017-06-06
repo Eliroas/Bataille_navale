@@ -19,7 +19,7 @@ include_directories(${MYPKG_INCLUDE_DIRS})
 
 ADD_EXECUTABLE( bataille.out src/bataille.cpp src/Plateau.cpp )
 
-ADD_EXECUTABLE( fenetre.out src/ig.cpp)
+ADD_EXECUTABLE( fenetre.out src/GuiWindow.cpp)
 
 ADD_EXECUTABLE( main_test.out src/main_test.cpp)
 

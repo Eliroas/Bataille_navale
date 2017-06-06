@@ -8,6 +8,11 @@
 #include <gtkmm/window.h>
 #include <gtkmm/container.h>
 #include <gtkmm/buttonbox.h>
+#include <vector>
+
+void on_button_press(Gtk::Button *b){
+  b->set_label("A");
+}
 
 void on_button_clicked_jouer()
 {
@@ -17,8 +22,18 @@ void on_button_clicked_jouer()
   fenetreJouer.set_icon_from_file("../img/icone2.png");
 
   Gtk::Table tableau(2, 2); //Création d'un tableau 
+
+  /*
+  std::vector <Gtk::Button> Grille;
+  for(int i=1;i<82;i++){
+    Grille[i].set_label(" ");
+    Grille[i].set_can_focus(false);
+  }
+  */
+  
   
   Gtk::Button bouton1(" ");
+  //bouton1.signal_clicked().connect( sigc::ptr_fun(&on_button_press(&bouton1)) );
   Gtk::Button bouton2(" ");
   Gtk::Button bouton3(" ");
   Gtk::Button bouton4(" ");
@@ -182,6 +197,7 @@ void on_button_clicked_jouer()
   bouton80.set_can_focus(false);
   bouton81.set_can_focus(false);
   
+
   tableau.attach(bouton1, 0, 1, 0, 1);
   tableau.attach(bouton2, 1, 2, 0, 1); 
   tableau.attach(bouton3, 2, 3, 0, 1);

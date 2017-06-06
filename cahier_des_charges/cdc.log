@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.27)  30 MAY 2017 10:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.27)  6 JUN 2017 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -707,13 +707,12 @@ File: maquette_selection.png Graphic file (type png)
 <use maquette_selection.png>
 Package pdftex.def Info: maquette_selection.png used on input line 154.
 (pdftex.def)             Requested size: 256.0748pt x 269.77625pt.
-
-<maquette_options.png, id=61, 450.68375pt x 474.77374pt>
+ <maquette_options.png, id=61, 963.6pt x 738.76pt>
 File: maquette_options.png Graphic file (type png)
 
 <use maquette_options.png>
 Package pdftex.def Info: maquette_options.png used on input line 160.
-(pdftex.def)             Requested size: 256.0748pt x 269.77625pt.
+(pdftex.def)             Requested size: 256.0748pt x 196.32281pt.
  [4 <./diagramme.png> <./maquette_selection.png>]
 <maquette_jeu.png, id=70, 451.6875pt x 478.78876pt>
 File: maquette_jeu.png Graphic file (type png)
@@ -745,7 +744,7 @@ usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/
 local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/lo
 cal/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on cdc.pdf (5 pages, 115276 bytes).
+Output written on cdc.pdf (5 pages, 118385 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  83 compressed objects within 1 object stream
