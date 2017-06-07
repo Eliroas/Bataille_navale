@@ -12,9 +12,6 @@
 #include <gtkmm/buttonbox.h>
 
 
-
-
-
 GuiWindow::GuiWindow(int argc, char ** argv) : _kit(argc, argv) {
 
   _FenetrePrincipale.set_title("Bataille Navale");
@@ -59,15 +56,15 @@ void GuiWindow::on_button_options()
   _FenetreOptions.set_default_size(480,100);
   // Redimensionner la fenetre
   _FenetreOptions.set_icon_from_file("../img/icone2.png");
-  _difficulte.set_label("Choix de la difficulté:");
+  _difficulte.set_label("Type de joueur:");
   _boiteMessage.add(_difficulte);
   // Ajout du message au conteneur
 
-  _boutonFacile.set_label("Facile");
+  _boutonFacile.set_label("Humain");
   _boutonFacile.set_can_focus(false);
   _boutonFacile.signal_clicked().connect(sigc::ptr_fun(&Gtk::Main::quit));
   // Creation du bouton pour la difficulté Facile
-  _boutonNormal.set_label("Normal");
+  _boutonNormal.set_label("IA");
   _boutonNormal.set_can_focus(false);
   _boutonNormal.signal_clicked().connect(sigc::ptr_fun(&Gtk::Main::quit));
    // Creation du bouton pour la difficulté Normale
@@ -131,7 +128,9 @@ void GuiWindow::on_button_jouer(){
   for(int i = 0; i < 81; i++){
     _Jbutton.push_back(new Gtk::Button());
   }
-	
+
+  
+  
   for(int i = 0; i < 9; i++){
     _Jboxes.push_back(new Gtk::HBox);
   }
@@ -159,7 +158,7 @@ void GuiWindow::on_button_jouer(){
 void GuiWindow::on_button_clicked(Gtk::Button *button){
   button->set_label("X");
   button->set_sensitive(false);
-}
+ }
 
 int main(int argc, char* argv[]) {
 
