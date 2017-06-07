@@ -62,29 +62,86 @@ void Plateau::LancerPartie(){
   std::cout << std::endl;
   std::cout << std::endl;
   
-  while(flotte_j1.size() != 0 && flotte_j2.size() !=0){
+  while(flotte_j1.size() != 0 && flotte_j2.size() !=0 ){
     
     if(tour%2==0){
       std::cout << "Coup du joueur 1 : " << std::endl;
       Coup c = CreerCoup(j1);
-      PlacerCoup(c, 0);
+      PlacerCoup(c,0);
+      int indice = UpdateEtatBateau(c,flotte_j2);
+      if(indice >=0){
+	flotte_j2[indice]->_nbTouche++;
+	if(flotte_j2[indice]->_nbTouche == flotte_j2[indice]->_longueur){
+	  std::cout << "On A COULE UN BATEAU" << std::endl;
+	  flotte_j2.erase(flotte_j2.begin() + indice);
+	}
+      }
     }
     else{
       std::cout << "Coup du joueur 2 : " << std::endl;
       Coup c = CreerCoup(j2);
-      PlacerCoup(c, 1);
+      PlacerCoup(c,1);
+      int indice = UpdateEtatBateau(c,flotte_j1);
+      if(indice >=0){
+	flotte_j1[indice]->_nbTouche++;
+	if(flotte_j1[indice]->_nbTouche == flotte_j1[indice]->_longueur){
+	  std::cout << "On A COULE UN BATEAU" << std::endl;
+	  flotte_j1.erase(flotte_j1.begin() + indice);
+	}
+      }
     }
 
     tour++;
     tour%=2;
     
     afficher_plateau_console();
-    }
+
+    std::cout << "Taille de la flotte j1 : " << flotte_j1.size() << std::endl;
+    std::cout << "Taille de la flotte j2 : " << flotte_j2.size() << std::endl;
     
+    }
+  std::cout << "TERMINE " << std::endl;
+  if(flotte_j1.size()==0){
+    std::cout << "Le joueur 2 a gagné !" << std::endl;
+  }
+  else{
+    std::cout << "Le joueur 1 a gagné ! " <<std::endl;
+  }
     //JouerCoup();
 }
 
-
+int Plateau::UpdateEtatBateau(Coup c,std::vector<Bateau*> B){
+  for(unsigned int i=0; i<B.size() ; i++){
+    int decal_x=0;
+    int decal_y=0;
+    switch(B[i]->_dir){
+    case NORD :
+      decal_x=0;
+      decal_y=-1;
+      break;
+    case SUD :
+      decal_x=0;
+      decal_y=1;
+      break;
+    case EST :
+      decal_x = 1;
+      decal_y=0;
+      break;
+    case OUEST :
+      decal_x=-1;
+      decal_y=0;
+      break;
+    }
+    
+    for(int j=0;j<B[i]->_longueur ; j++){
+      //Il verifie toujours la meme case ( utiliser decalage x
+      if(B[i]->_x + decal_x*j == c._px && B[i]->_y +decal_y*j == c._py){
+	return i;
+      }
+    }
+  }
+  return -1;
+}
 
 void Plateau::PlacerCoup(Coup c,int tour){
   if(tour%2==0){
@@ -104,7 +161,6 @@ void Plateau::PlacerCoup(Coup c,int tour){
     }
   }
 }
-
 
 Coup Plateau::CreerCoup(Joueur j){
   int posX=0;
@@ -226,7 +282,7 @@ void Plateau::afficher_plateau_console(){
       std::cout << " T ";
       break;
     case BATEAU :
-      std::cout << " V " ;
+      std::cout << " B " ; // On met a V pour cacher les bateaux ennemis
       break;
     }
     if(i%getTaille()==getTaille()-1){
@@ -241,9 +297,9 @@ void Plateau::afficher_plateau_console(){
   
   for(int  i=0; i< getTaille()*getTaille();i++){
       switch (plat_joueur1[i]._state){
-      case VIDE :
-	std::cout << " V " ;
-	break;
+       case VIDE :
+       	std::cout << " V " ;
+       	break;
       case RATE :
 	std::cout << " R ";
 	break;
@@ -460,7 +516,7 @@ void Plateau::PlacerBateau(Joueur j1){
 
       placement_legitime = verification_placement_bateau(posX,posY,lon,
 							 decalage_x,decalage_y,
-							 plat_joueur1);
+							 plat_joueur2);
     }
     
    std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<

@@ -29,8 +29,9 @@ public:
   Coup CreerCoup(Joueur j);
   void PlacerCoup(Coup c, int tour);
   void LancerPartie();
-  
   void strategieAveugle(int *posX,int *posY, int id);
+
+  int UpdateEtatBateau(Coup c,std::vector<Bateau*> B);
 
 };
 
