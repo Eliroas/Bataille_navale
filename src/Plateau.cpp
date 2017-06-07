@@ -119,13 +119,13 @@ Coup Plateau::CreerCoup(Joueur j){
     
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << " Abscisse : " ;
+    std::cout << "Abscisse : " ;
     std::cin >> posX;
     std::cout << std::endl;
 
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << " Ordonnée : " ;
+    std::cout << "Ordonnée : " ;
     std::cin >> posY;
     std::cout << std::endl;
 
@@ -270,6 +270,7 @@ void Plateau::PlacerBateau(Joueur j1){
     int posY;
     int lon;
     int dir;
+    int id=j;
 
     //definit la taille du bateau
     switch (j){
@@ -394,7 +395,7 @@ void Plateau::PlacerBateau(Joueur j1){
    std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<
      " et s'etend jusqu'en " << posX + decalage_x*(lon-1) << " , " << posY + decalage_y*(lon-1) << std::endl;
 
-   flotte_j1[j]= new Bateau(posX,posY,lon,dir);
+   flotte_j1[j]= new Bateau(posX,posY,lon,dir,j);
     
    for(int k=0; k<lon; k++){
      plat_joueur1[posX +   (posY*getTaille())  +   decalage_y*getTaille()*k  + decalage_x*k  ]._state = BATEAU;
@@ -411,6 +412,7 @@ void Plateau::PlacerBateau(Joueur j1){
     int posY;
     int lon;
     int dir;
+    int id=j;
 
     //definit la taille du bateau
     switch (j){
@@ -464,7 +466,7 @@ void Plateau::PlacerBateau(Joueur j1){
    std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<
      " et s'etend jusqu'en " << posX + decalage_x*(lon-1) << " , " << posY + decalage_y*(lon-1) << std::endl;
 
-   flotte_j2[j]= new Bateau(posX,posY,lon,dir);
+   flotte_j2[j]= new Bateau(posX,posY,lon,dir,j);
     
    for(int k=0; k<lon; k++){
      plat_joueur2[posX +   (posY*getTaille())  +   decalage_y*getTaille()*k  + decalage_x*k  ]._state = BATEAU;

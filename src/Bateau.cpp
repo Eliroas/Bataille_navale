@@ -1,12 +1,13 @@
 #include "Bateau.hpp"
 #include "globales.hpp"
 
-Bateau::Bateau(int x,int y, int longueur, int dir):
+Bateau::Bateau(int x,int y, int longueur, int dir,int id):
   _x(x),
   _y(y),
   _longueur(longueur),
   _dir(dir),
-  _nbTouche(0)
+  _nbTouche(0),
+  _id(id)
 {}
 
 int Bateau::getAbscisse(){
