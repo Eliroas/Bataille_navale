@@ -62,7 +62,7 @@ void Plateau::LancerPartie(){
   std::cout << std::endl;
   std::cout << std::endl;
   
-  while(flotte_j1.size() != 0 && flotte_j2.size() !=0)){
+  while(flotte_j1.size() != 0 && flotte_j2.size() !=0){
     
     if(tour%2==0){
       std::cout << "Coup du joueur 1 : " << std::endl;
