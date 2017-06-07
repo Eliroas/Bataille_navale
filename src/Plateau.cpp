@@ -110,12 +110,9 @@ Coup Plateau::CreerCoup(Joueur j){
   int posX=0;
   int posY=0;
 
-  int *ptr_posX=&posX;
-  int *ptr_posY=&posY;
+  //int *ptr_posX=&posX;
+  //int *ptr_posY=&posY;
 
-  
-  //int *ptr_posX=posX;
-  //int *ptr_posX=posX;
   switch(j._type){
   case HUMAIN :
     std::cout<<"Saisissez la position de votre tir :"<< std::endl;
