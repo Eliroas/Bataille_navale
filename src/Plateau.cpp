@@ -6,6 +6,8 @@
 #include <math.h>
 #include <time.h>
 
+int global_difficulte=0; // 0 OU 1  -> DIFFICULTE
+
 //Constructeur qui créer un plateau de jeu
 Plateau::Plateau(int taille):
   plat_joueur1(taille*taille),
@@ -55,15 +57,13 @@ void Plateau::LancerPartie(){
   //----FIN CREATION DES JOUEURS ET DU PLACEMENT DE LEURS BATEAUX
   //performance de l'ia
 
-    
+  std::cin >> type_j1;
   //----DEMARRAGE DU JEU
-  bool verifierVictoire=false;
+  //bool verifierVictoire=false;
   int tour=0;
   std::cout << std::endl;
   std::cout << std::endl;
-  
   while(flotte_j1.size() != 0 && flotte_j2.size() !=0 ){
-    
     if(tour%2==0){
       std::cout << "Coup du joueur 1 : " << std::endl;
       Coup c = CreerCoup(j1);
@@ -71,8 +71,35 @@ void Plateau::LancerPartie(){
       int indice = UpdateEtatBateau(c,flotte_j2);
       if(indice >=0){
 	flotte_j2[indice]->_nbTouche++;
-	if(flotte_j2[indice]->_nbTouche == flotte_j2[indice]->_longueur){
+	if(flotte_j2[indice]->_nbTouche >= flotte_j2[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
+	  int decal_x;
+	  int decal_y;
+	  switch(flotte_j2[indice]->_dir){
+	  case NORD :
+	    decal_x=0;
+	    decal_y=-1;
+	    break;
+	  case SUD :
+	    decal_x=0;
+	    decal_y=1;
+	    break;
+	  case EST :
+	    decal_x = 1;
+	    decal_y=0;
+	    break;
+	  case OUEST :
+	    decal_x=-1;
+	    decal_y=0;
+	    break;
+	  }
+	  for(int r=0; r<flotte_j2[indice]->_longueur; r++){
+	    plat_joueur2[ flotte_j2[indice]->_x + flotte_j2[indice]->_y*getTaille()
+			  + decal_x*r + decal_y*r*getTaille()]._state=COULE;
+	  }
+	  
+
+
 	  flotte_j2.erase(flotte_j2.begin() + indice);
 	}
       }
@@ -84,20 +111,50 @@ void Plateau::LancerPartie(){
       int indice = UpdateEtatBateau(c,flotte_j1);
       if(indice >=0){
 	flotte_j1[indice]->_nbTouche++;
-	if(flotte_j1[indice]->_nbTouche == flotte_j1[indice]->_longueur){
+	if(flotte_j1[indice]->_nbTouche >= flotte_j1[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
+
+	  
+
+	  int decal_x;
+	  int decal_y;
+	  switch(flotte_j1[indice]->_dir){
+	  case NORD :
+	    decal_x=0;
+	    decal_y=-1;
+	    break;
+	  case SUD :
+	    decal_x=0;
+	    decal_y=1;
+	    break;
+	  case EST :
+	    decal_x = 1;
+	    decal_y=0;
+	    break;
+	  case OUEST :
+	    decal_x=-1;
+	    decal_y=0;
+	    break;
+	    }
+	  for(int r=0; r<flotte_j1[indice]->_longueur; r++){
+	    plat_joueur1[ flotte_j1[indice]->_x + flotte_j1[indice]->_y*getTaille()
+			  + decal_x*r + decal_y*r*getTaille()]._state=COULE;
+	  }
+
+
+	  
+	  
 	  flotte_j1.erase(flotte_j1.begin() + indice);
 	}
       }
     }
-
+    
     tour++;
     tour%=2;
-    
     afficher_plateau_console();
 
-    std::cout << "Taille de la flotte j1 : " << flotte_j1.size() << std::endl;
-    std::cout << "Taille de la flotte j2 : " << flotte_j2.size() << std::endl;
+    //std::cout << "Taille de la flotte j1 : " << flotte_j1.size() << std::endl;
+    //std::cout << "Taille de la flotte j2 : " << flotte_j2.size() << std::endl;
     
     }
   std::cout << "TERMINE " << std::endl;
@@ -157,7 +214,9 @@ void Plateau::PlacerCoup(Coup c,int tour){
       plat_joueur1[c._px + c._py*getTaille()]._state = TOUCHE;
     }
     else{
-      plat_joueur1[c._px + c._py*getTaille()]._state = RATE;
+      if(plat_joueur1[c._px + c._py*getTaille()]._state == VIDE){
+	plat_joueur1[c._px + c._py*getTaille()]._state = RATE;
+      }
     }
   }
 }
@@ -166,49 +225,23 @@ Coup Plateau::CreerCoup(Joueur j){
   int posX=0;
   int posY=0;
 
-  //int *ptr_posX=&posX;
-  //int *ptr_posY=&posY;
+  
+  int *ptr_posX=&posX;
+  int *ptr_posY=&posY;
 
   switch(j._type){
   case HUMAIN :
-    std::cout<<"Saisissez la position de votre tir :"<< std::endl;
-    
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "Abscisse : " ;
-    std::cin >> posX;
-    std::cout << std::endl;
-
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "Ordonnée : " ;
-    std::cin >> posY;
-    std::cout << std::endl;
-
-    while(posX<0 || posX>=getTaille() || posY <0 || posY >= getTaille() ||
-	  plat_joueur2[posX + (posY*getTaille())]._state == RATE ||
-	  plat_joueur2[posX + (posY*getTaille())]._state == TOUCHE 
-	  ){
-      std::cout << "Erreur, coordonnées non valides. Vous tirez en dehors du plateau ou tirez sur une case déjà visée" << std::endl;
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      std::cout << " Abscisse : " ;
-      std::cin >> posX;
-      std::cout << std::endl;
-
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      std::cout << " Ordonnée : " ;
-      std::cin >> posY;
-      std::cout << std::endl;
-      }
-    
-    // en dehors du plateau
-    // sur une case deja tirée
-    
+    PlacementHumain(ptr_posX,ptr_posY);
     break;
   case IA :
-    strategieAveugle(&posX,&posY,j._id);
+    switch (global_difficulte){
+    case 0 :
+      strategieAveugleSourd(ptr_posX,ptr_posY,j._id);
+      break;
+    case 1 :
+      strategieAveugle(ptr_posX,ptr_posY, j._id);
+      break;
+    }
     break;
   }
 
@@ -216,29 +249,75 @@ Coup Plateau::CreerCoup(Joueur j){
   return c;
 }
 
+void Plateau::PlacementHumain(int *posX , int *posY){
+  std::cout<<"Saisissez la position de votre tir :"<< std::endl;
+    
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Abscisse : " ;
+    std::cin >> *posX;
+    std::cout << std::endl;
 
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Ordonnée : " ;
+    std::cin >> *posY;
+    std::cout << std::endl;
 
-void Plateau::strategieAveugle(int *posX,int *posY,int id){
-   srand (time(NULL));
-   *posX  = rand() % 9;
-   *posY  = rand() % 9;
+    while(*posX<0 || *posX>=getTaille() || *posY <0 || *posY >= getTaille() ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == RATE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == TOUCHE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == COULE
+	  ){
+      std::cout << "Erreur, coordonnées non valides. Vous tirez en dehors du plateau ou tirez sur une case déjà visée" << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << " Abscisse : " ;
+      std::cin >> *posX;
+      std::cout << std::endl;
 
-   if(id==1){
-     while(plat_joueur1[*posX + (*posY*getTaille())]._state == RATE ||
-	   plat_joueur1[*posX + (*posY*getTaille())]._state == TOUCHE ){
-       *posX  = rand() % 9;
-       *posY  = rand() % 9;
-     }
-   }
-   else{
-     while(plat_joueur2[*posX + (*posY*getTaille())]._state == RATE ||
-	   plat_joueur2[*posX + (*posY*getTaille())]._state == TOUCHE ){
-       *posX  = rand() % 9;
-       *posY  = rand() % 9;
-     }
-   }
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << " Ordonnée : " ;
+      std::cin >> *posY;
+      std::cout << std::endl;
+      }
+    
+    // en dehors du plateau
+    // sur une case deja tirée
+    
 }
 
+
+void Plateau::strategieAveugleSourd(int *posX,int *posY,int id){
+  std::cout << "Strategie aveugle et sourd ! " << std::endl;
+  srand (time(NULL));
+  *posX  = rand() % 9;
+  *posY  = rand() % 9;
+
+  if(id==1){
+    while(plat_joueur1[*posX + (*posY*getTaille())]._state == RATE ||
+	  plat_joueur1[*posX + (*posY*getTaille())]._state == TOUCHE ||
+	  plat_joueur1[*posX + (*posY*getTaille())]._state == COULE){
+      *posX  = rand() % 9;
+      *posY  = rand() % 9;
+    }
+  }
+  else{
+    while(plat_joueur2[*posX + (*posY*getTaille())]._state == RATE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == TOUCHE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == COULE){
+      *posX  = rand() % 9;
+      *posY  = rand() % 9;
+    }
+  }
+}
+
+void Plateau::strategieAveugle(int *posX, int *posY, int id){
+  std::cout << "Strategie aveugle mais qui entend ! " << std::endl;
+  // On tire au hasard et dès qu'on touche, on tire aux alentours jusqu'a le couler
+  //Puis on reprend les tirs au hasard
+}
 
 
 //initialise le plateau ( toutes les cases sont vides )
@@ -273,7 +352,7 @@ void Plateau::afficher_plateau_console(){
   for(int  i=0; i< getTaille()*getTaille();i++){
     switch (plat_joueur2[i]._state){
     case VIDE :
-      std::cout << " V " ;
+      std::cout << " . " ;
       break;
     case RATE :
       std::cout << " R ";
@@ -283,6 +362,9 @@ void Plateau::afficher_plateau_console(){
       break;
     case BATEAU :
       std::cout << " B " ; // On met a V pour cacher les bateaux ennemis
+      break;
+    case COULE :
+      std::cout << " C " ;
       break;
     }
     if(i%getTaille()==getTaille()-1){
@@ -298,7 +380,7 @@ void Plateau::afficher_plateau_console(){
   for(int  i=0; i< getTaille()*getTaille();i++){
       switch (plat_joueur1[i]._state){
        case VIDE :
-       	std::cout << " V " ;
+       	std::cout << " . " ;
        	break;
       case RATE :
 	std::cout << " R ";
@@ -309,6 +391,9 @@ void Plateau::afficher_plateau_console(){
       case BATEAU :
 	std::cout << " B " ;
 	break;
+      case COULE :
+	std::cout << " C " ;
+	break;	
     }
       if(i%getTaille()==getTaille()-1){
 	std::cout << std::endl;

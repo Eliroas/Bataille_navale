@@ -13,8 +13,9 @@
 
 //cet enum contient tout les etats possibles d'une case
 enum etat {
-  VIDE, RATE, TOUCHE, BATEAU
+  VIDE, RATE, TOUCHE, BATEAU, COULE
 };
 
+extern int global_difficulte;
 
 #endif
