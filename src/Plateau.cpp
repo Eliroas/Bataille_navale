@@ -7,6 +7,8 @@
 #include <time.h>
 
 int global_difficulte=0; // 0 OU 1  -> DIFFICULTE
+bool succes_tir_j1 = false;
+bool succes_tir_j2 = false;
 
 //Constructeur qui créer un plateau de jeu
 Plateau::Plateau(int taille):
@@ -73,6 +75,7 @@ void Plateau::LancerPartie(){
 	flotte_j2[indice]->_nbTouche++;
 	if(flotte_j2[indice]->_nbTouche >= flotte_j2[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
+	  succes_tir_j1=false;
 	  int decal_x;
 	  int decal_y;
 	  switch(flotte_j2[indice]->_dir){
@@ -97,9 +100,6 @@ void Plateau::LancerPartie(){
 	    plat_joueur2[ flotte_j2[indice]->_x + flotte_j2[indice]->_y*getTaille()
 			  + decal_x*r + decal_y*r*getTaille()]._state=COULE;
 	  }
-	  
-
-
 	  flotte_j2.erase(flotte_j2.begin() + indice);
 	}
       }
@@ -113,9 +113,8 @@ void Plateau::LancerPartie(){
 	flotte_j1[indice]->_nbTouche++;
 	if(flotte_j1[indice]->_nbTouche >= flotte_j1[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
-
-	  
-
+	  succes_tir_j2=false;
+	  //on lache prise qu'une fois le bateau coulé
 	  int decal_x;
 	  int decal_y;
 	  switch(flotte_j1[indice]->_dir){
@@ -140,10 +139,6 @@ void Plateau::LancerPartie(){
 	    plat_joueur1[ flotte_j1[indice]->_x + flotte_j1[indice]->_y*getTaille()
 			  + decal_x*r + decal_y*r*getTaille()]._state=COULE;
 	  }
-
-
-	  
-	  
 	  flotte_j1.erase(flotte_j1.begin() + indice);
 	}
       }
@@ -204,6 +199,7 @@ void Plateau::PlacerCoup(Coup c,int tour){
   if(tour%2==0){
     if(plat_joueur2[c._px + c._py*getTaille()]._state == BATEAU){
       plat_joueur2[c._px + c._py*getTaille()]._state = TOUCHE;
+      succes_tir_j1=true;
     }
     else{
       plat_joueur2[c._px + c._py*getTaille()]._state = RATE;
@@ -212,6 +208,7 @@ void Plateau::PlacerCoup(Coup c,int tour){
   else{
     if(plat_joueur1[c._px + c._py*getTaille()]._state == BATEAU){
       plat_joueur1[c._px + c._py*getTaille()]._state = TOUCHE;
+      succes_tir_j2=true;
     }
     else{
       if(plat_joueur1[c._px + c._py*getTaille()]._state == VIDE){
@@ -286,37 +283,6 @@ void Plateau::PlacementHumain(int *posX , int *posY){
     // en dehors du plateau
     // sur une case deja tirée
     
-}
-
-
-void Plateau::strategieAveugleSourd(int *posX,int *posY,int id){
-  std::cout << "Strategie aveugle et sourd ! " << std::endl;
-  srand (time(NULL));
-  *posX  = rand() % 9;
-  *posY  = rand() % 9;
-
-  if(id==1){
-    while(plat_joueur1[*posX + (*posY*getTaille())]._state == RATE ||
-	  plat_joueur1[*posX + (*posY*getTaille())]._state == TOUCHE ||
-	  plat_joueur1[*posX + (*posY*getTaille())]._state == COULE){
-      *posX  = rand() % 9;
-      *posY  = rand() % 9;
-    }
-  }
-  else{
-    while(plat_joueur2[*posX + (*posY*getTaille())]._state == RATE ||
-	  plat_joueur2[*posX + (*posY*getTaille())]._state == TOUCHE ||
-	  plat_joueur2[*posX + (*posY*getTaille())]._state == COULE){
-      *posX  = rand() % 9;
-      *posY  = rand() % 9;
-    }
-  }
-}
-
-void Plateau::strategieAveugle(int *posX, int *posY, int id){
-  std::cout << "Strategie aveugle mais qui entend ! " << std::endl;
-  // On tire au hasard et dès qu'on touche, on tire aux alentours jusqu'a le couler
-  //Puis on reprend les tirs au hasard
 }
 
 
@@ -531,7 +497,6 @@ void Plateau::PlacerBateau(Joueur j1){
 							  plat_joueur1);
      }
    }
-
     
    std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<
      " et s'etend jusqu'en " << posX + decalage_x*(lon-1) << " , " << posY + decalage_y*(lon-1) << std::endl;
@@ -625,8 +590,8 @@ bool Plateau::verification_placement_bateau(int x, int y, int taille,
 					    std::vector<Case> C){
   for(int k=0;k<taille;k++){
     //on verifie si le bateau ne sort pas du plateau
-     if((x+k*decalage_x) < 0 || (x+k*decalage_x) >= getTaille() ||
-    (y+k*decalage_y) < 0 || (y+k*decalage_y) >= getTaille() ){
+    if((x+k*decalage_x) < 0 || (x+k*decalage_x) >= getTaille() ||
+       (y+k*decalage_y) < 0 || (y+k*decalage_y) >= getTaille() ){
       std::cout << "Erreur vous sortez du plateau" << std::endl;
       return false;
     }
@@ -655,3 +620,58 @@ void Plateau::afficher_flotte(std::vector<Bateau*> flotte){
 //---------------------------------------------FONCTIONS IA
 
 
+void Plateau::strategieAveugleSourd(int *posX,int *posY,int id){
+  std::cout << "Strategie aveugle et sourd ! " << std::endl;
+  srand (time(NULL));
+
+  if(id==1){
+    do{
+      *posX  = rand() % 9;
+      *posY  = rand() % 9;
+    }
+    while(plat_joueur1[*posX + (*posY*getTaille())]._state == RATE ||
+	  plat_joueur1[*posX + (*posY*getTaille())]._state == TOUCHE ||
+	  plat_joueur1[*posX + (*posY*getTaille())]._state == COULE);    
+  }
+  else{
+    do{
+      *posX  = rand() % 9;
+      *posY  = rand() % 9;
+    }
+    while(plat_joueur2[*posX + (*posY*getTaille())]._state == RATE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == TOUCHE ||
+	  plat_joueur2[*posX + (*posY*getTaille())]._state == COULE);
+  }
+}
+
+void Plateau::strategieAveugle(int *posX, int *posY, int id){
+  std::cout << "Strategie aveugle mais qui entend ! " << std::endl;
+  srand (time(NULL));
+  // On tire au hasard et dès qu'on touche, on tire aux alentours jusqu'a le couler
+  //Puis on reprend les tirs au hasard
+
+  if(id==0){ // joueur 1
+    if(succes_tir_j1){
+      //essayer de tirer autour
+    }
+    else{
+      strategieAveugleSourd(posX,posY,id);
+    }
+  }
+  else{
+    if(succes_tir_j2){
+      //essayer de tirer autour
+    }
+    else{
+      strategieAveugleSourd(posX,posY,id);
+    }
+  }
+}
+
+//--------------------
+/*
+Pour tirer autour, il faut garder en mémoire le dernier coup qui a
+touché. Or, le dernier coup est le coup adverse, donc il faut sauver en
+mémoire le dernier coup du j1 ET du j2 pour les reprendre dans la fonction
+ci dessus
+*/

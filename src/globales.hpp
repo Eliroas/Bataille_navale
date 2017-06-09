@@ -17,5 +17,7 @@ enum etat {
 };
 
 extern int global_difficulte;
+extern bool succes_tir_j1;
+extern bool succes_tir_j2;
 
 #endif
