@@ -19,7 +19,7 @@ public:
   int getOrdonnee();
   int getTaille();
   int getDir();
-  
+
 };
 
 #endif

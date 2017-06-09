@@ -2,9 +2,10 @@
 #define PLATEAU_HPP_
 
 #include <vector>
-#include "Case.hpp"
 #include "Bateau.hpp"
 #include "Coup.hpp"
+#include "Joueur.hpp"
+#include "globales.hpp"
 
 class Plateau{
 public:
@@ -15,29 +16,25 @@ public:
   std::vector<Bateau*> flotte_j2;
   
   Plateau(int taille);
-  
+  void LancerPartie();
   void initialiser() ;
   int getTaille() const;
   void afficher_plateau_console();
   
-  void PlacerBateau(Joueur j1);
+  void PlacerBateau(Joueur j);
+
   bool verification_placement_bateau(int x, int y, int taille,
 				     int decalage_x,int decalage_y,
 				     std::vector<Case> C);
-  //void afficher_flotte(std::vector<Bateau*>flotte);
 
-  Coup CreerCoup(Joueur j);
+
   void PlacerCoup(Coup c, int tour);
-  void LancerPartie();
-
-  void PlacementHumain(int *posX, int *posY);
-  void strategieAveugleSourd(int *posX,int *posY, int id);
-  void strategieAveugle(int *posX,int *posY, int id);
+ 
 
   int UpdateEtatBateau(Coup c,std::vector<Bateau*> B);
 
+  
 };
-
 
 #endif
 
