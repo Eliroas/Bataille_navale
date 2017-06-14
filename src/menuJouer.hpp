@@ -3,6 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdlib>
+#include <vector>
+#include "Case.hpp"
+
+#define z 450
 
 using namespace std;
 
@@ -10,6 +14,7 @@ class menuJouer{
 public:
   menuJouer();
   void run();
+  void create();
 private:
   sf::RenderWindow _jouerMenu;
 
@@ -18,6 +23,7 @@ private:
 
   sf::Texture _imageGrille;
   sf::Sprite _spriteGrille;
+  std::vector <Cases> _Grille;
 
   sf::Texture _imageValider;
   sf::Sprite _spriteValider;

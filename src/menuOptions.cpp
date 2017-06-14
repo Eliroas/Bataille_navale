@@ -36,6 +36,7 @@ void menuOptions::run(){
 		 && _localPosition.y <= _spriteJvI.getPosition().y+_Vy){
 		_optionsMenu.close();
 		menuJouer jouer;
+		jouer.create();
 		jouer.run();
 	      }
 	    }
@@ -48,6 +49,7 @@ void menuOptions::run(){
 		 && _localPosition.y <= _spriteIvI.getPosition().y+_Iy){
 		_optionsMenu.close();
 		menuJouer jouer;
+		jouer.create();
 		jouer.run();
 	      }
 	    }
@@ -67,11 +69,3 @@ void menuOptions::run(){
   }
   }
 }
- 
-//int main(){
-
-//menuOptions main;
-//main.run();
-//return 0;
-
-//}

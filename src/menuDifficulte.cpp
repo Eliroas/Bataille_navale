@@ -2,9 +2,10 @@
 #include "menuOptions.hpp"
 
 menuDifficulte::menuDifficulte(){
-
+  //creation de la nouvelle fenetre
   _difficulteMenu.create(sf::VideoMode(900, 850), "Bataille Navale");
 
+  //declaration des sprites
   _imageBataille.loadFromFile("../img/batailleChoix.png");
   _spriteBataille.setTexture(_imageBataille);
   _imageFond.loadFromFile("../img/metal4.png");
@@ -13,6 +14,8 @@ menuDifficulte::menuDifficulte(){
   _spriteFacile.setTexture(_boutonFacile);
   _boutonNormal.loadFromFile("../img/boutonNormal.png");
   _spriteNormal.setTexture(_boutonNormal);
+
+  // declaration des coordonnées des boutons
   _Fx = _boutonFacile.getSize().x;
   _Fy = _boutonFacile.getSize().y;
   _Nx = _boutonNormal.getSize().x;
@@ -24,10 +27,11 @@ void menuDifficulte::run(){
   while(_difficulteMenu.isOpen()){
     while (_difficulteMenu.pollEvent(_event))
         {
+	  //Pour permettre de fermer la fenetre
             if (_event.type == sf::Event::Closed)
                 _difficulteMenu.close();
 
-
+	    //Ouvre la fenetre Options si clique sur le bouton
 	    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 	      _localPosition = sf::Mouse::getPosition(_difficulteMenu);
 	      if(_localPosition.x >= _spriteFacile.getPosition().x
@@ -41,6 +45,7 @@ void menuDifficulte::run(){
 	      }
 	    }
 
+	    //Ouvre la fenetre Options si clique sur le bouton
 	    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 	      _localPosition = sf::Mouse::getPosition(_difficulteMenu);
 	      if(_localPosition.x >= _spriteNormal.getPosition().x
@@ -53,9 +58,9 @@ void menuDifficulte::run(){
 	      }
 	    }
 
-    
+
+	// Positionnement et affichage des differents sprites de la fenetre
     	_spriteBataille.setPosition(sf::Vector2f(50,50));
-	//affichage des images
 	_difficulteMenu.draw(_spriteFond);
 	_difficulteMenu.draw(_spriteBataille);
 	_spriteFacile.setPosition(sf::Vector2f(30, 550));
@@ -69,10 +74,3 @@ void menuDifficulte::run(){
   }
 }
  
-//int main(){
-
-//menuDifficulte main;
-//main.run();
-//return 0;
-
-//}
