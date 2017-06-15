@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.27)  15 JUN 2017 12:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.27)  15 JUN 2017 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,42 +709,42 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 162--165
+Underfull \hbox (badness 10000) in paragraph at lines 160--163
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--165
+Underfull \hbox (badness 10000) in paragraph at lines 160--163
 
  []
 
 <VectorCase.png, id=73, 368.87813pt x 348.55219pt>
 File: VectorCase.png Graphic file (type png)
  <use VectorCase.png>
-Package pdftex.def Info: VectorCase.png used on input line 172.
+Package pdftex.def Info: VectorCase.png used on input line 170.
 (pdftex.def)             Requested size: 142.26378pt x 134.42435pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--180
+Underfull \hbox (badness 10000) in paragraph at lines 174--178
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--180
+Underfull \hbox (badness 10000) in paragraph at lines 174--178
 
  []
 
 <VectorBateau.png, id=75, 481.8pt x 301.125pt>
 File: VectorBateau.png Graphic file (type png)
  <use VectorBateau.png>
-Package pdftex.def Info: VectorBateau.png used on input line 186.
+Package pdftex.def Info: VectorBateau.png used on input line 184.
 (pdftex.def)             Requested size: 199.16928pt x 124.4775pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--194
+Underfull \hbox (badness 10000) in paragraph at lines 189--192
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--194
+Underfull \hbox (badness 10000) in paragraph at lines 189--192
 
  []
 
@@ -754,83 +754,83 @@ Underfull \hbox (badness 10000) in paragraph at lines 191--194
 <menuPrincipal.png, id=83, 905.3825pt x 879.285pt>
 File: menuPrincipal.png Graphic file (type png)
  <use menuPrincipal.png>
-Package pdftex.def Info: menuPrincipal.png used on input line 202.
+Package pdftex.def Info: menuPrincipal.png used on input line 200.
 (pdftex.def)             Requested size: 199.16928pt x 193.41646pt.
 
 <menuDifficulte.png, id=84, 905.3825pt x 879.285pt>
 File: menuDifficulte.png Graphic file (type png)
  <use menuDifficulte.png>
-Package pdftex.def Info: menuDifficulte.png used on input line 214.
+Package pdftex.def Info: menuDifficulte.png used on input line 212.
 (pdftex.def)             Requested size: 199.16928pt x 193.41646pt.
 
 <menuOptions.png, id=85, 905.3825pt x 879.285pt>
 File: menuOptions.png Graphic file (type png)
  <use menuOptions.png>
-Package pdftex.def Info: menuOptions.png used on input line 218.
+Package pdftex.def Info: menuOptions.png used on input line 216.
 (pdftex.def)             Requested size: 199.16928pt x 193.41646pt.
  [4 <./menuPrincipal.png> <./menuDifficulte.png>]
 <menuJouer.png, id=93, 905.3825pt x 879.285pt>
 File: menuJouer.png Graphic file (type png)
  <use menuJouer.png>
-Package pdftex.def Info: menuJouer.png used on input line 228.
+Package pdftex.def Info: menuJouer.png used on input line 226.
 (pdftex.def)             Requested size: 199.16928pt x 193.41646pt.
 
 <Jeu.png, id=94, 1206.5075pt x 748.7975pt>
 File: Jeu.png Graphic file (type png)
  <use Jeu.png>
-Package pdftex.def Info: Jeu.png used on input line 235.
+Package pdftex.def Info: Jeu.png used on input line 233.
 (pdftex.def)             Requested size: 256.0748pt x 158.92026pt.
  [5 <./menuOptions.png> <./menuJouer.png> <./Jeu.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 260--263
+Underfull \hbox (badness 10000) in paragraph at lines 258--261
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--263
+Underfull \hbox (badness 10000) in paragraph at lines 258--261
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--292
+Underfull \hbox (badness 10000) in paragraph at lines 287--290
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--292
+Underfull \hbox (badness 10000) in paragraph at lines 287--290
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--303
+Underfull \hbox (badness 10000) in paragraph at lines 298--301
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--303
+Underfull \hbox (badness 10000) in paragraph at lines 298--301
 
  []
 
 [6
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 319--322
+Underfull \hbox (badness 10000) in paragraph at lines 317--320
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--322
+Underfull \hbox (badness 10000) in paragraph at lines 317--320
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 334.
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 334.
  (./rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 334.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 334.
 Package rerunfilecheck Info: File `rapport.out' has not changed.
 (rerunfilecheck)             Checksum: 9E7E3493F05379E4246EB7C434B05955;642.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 334.
  ) 
 Here is how much of TeX's memory you used:
  7769 strings out of 493014
@@ -845,7 +845,7 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
 usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on rapport.pdf (7 pages, 5548148 bytes).
+Output written on rapport.pdf (7 pages, 5547030 bytes).
 PDF statistics:
  140 PDF objects out of 1000 (max. 8388607)
  110 compressed objects within 2 object streams
