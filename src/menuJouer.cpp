@@ -2,7 +2,7 @@
 // g++ -o Menu menuPrincipal.o menuDifficulte.o menuOptions.o menuJouer.o -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 #include "menuJouer.hpp"
-#include "Case.hpp"
+#include "globales.hpp"
 #include <iostream>
 #include <vector>
 
