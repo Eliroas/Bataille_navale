@@ -11,7 +11,6 @@
 #define SUD 2
 #define OUEST 3
 
-
 //cet enum contient tout les etats possibles d'une case
 enum etat {
   VIDE, RATE, TOUCHE, BATEAU, COULE
@@ -23,10 +22,7 @@ struct Case{
   etat _state;
 };
 
-
 extern int global_difficulte;
-
-extern bool succes_tir_j1;
-extern bool succes_tir_j2;
+extern int global_difficulte_b;
 
 #endif

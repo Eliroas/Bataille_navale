@@ -23,17 +23,3 @@ public:
 };
 
 #endif
-
-/*
-On ne peut pas savoir quel bateau on a touché lorsqu'on joue un coup
-
-Pour cela, on rajoute un id au bateau
-et lorsqu'on a tiré, on parcourt la flotte du joueur adverse
-et on repere quel bateau contient une case aux meme 
-coordonnées que le coup.(grace a l'id
-Puis on incrémente le nbtouche de ce bateau
-et une fois que son nbtouche est egal a sa longueur
-il est coulé ( supprimé du vector flotte )
-une fois que flotte est vide, le jeu s'arrete
-
- */

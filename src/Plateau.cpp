@@ -6,12 +6,7 @@
 #include <time.h>
 
 
-int global_difficulte=0; // 0 OU 1 -> DIFFICULTE
-
-//retient le coup précédent du joueur (true si touché)
-bool succes_tir_j1 = false;
-bool succes_tir_j2 = false;
-
+int global_difficulte =0; // 0 OU 1 -> DIFFICULTE
 
 //Constructeur qui créer un plateau de jeu
 Plateau::Plateau(int taille):
@@ -30,9 +25,8 @@ void Plateau::LancerPartie(){
   std::cout << "----------DEMARRAGE DU JEU------------" << std::endl;
   std::cout << std::endl;
 
-
   //---CREATION DE JOUEURS
-  std::cout <<  "HUMAIN : " << HUMAIN << " IA : " << IA << std::endl;
+  
   int type_j1;
   std::cout << "Le premier joueur est un HUMAIN  ou une IA : " << std::endl;
 
@@ -53,45 +47,73 @@ void Plateau::LancerPartie(){
     type_j1=IA;
   }
 
+  std::cout<< "Intelligence ia (0,1,2) : " <<std::endl;
+  std::cin >> global_difficulte;
+
   Joueur j1(0,type_j1);
   Joueur j2(1,IA);
   afficher_plateau_console();
   PlacerBateau(j1);
   PlacerBateau(j2);
 
-  //retient les coordonnées coup précédent
-  
-  /*
-  Coup coup_prec_j1(j1,0,0);
-  Coup coup_prec_j2(j2,0,1);
-
-  //retient le premier touché
-  Coup succes_origine_j1(j1,0,0);
-  Coup succes_origine_j2(j2,0,1);
-  */
-
   
   //----FIN CREATION DES JOUEURS ET DU PLACEMENT DE LEURS BATEAUX
-  //performance de l'ia
 
   //----DEMARRAGE DU JEU
   //bool verifierVictoire=false;
   int tour=0;
   std::cout << std::endl;
   std::cout << std::endl;
-  while(flotte_j1.size() != 0 && flotte_j2.size() !=0 ){
+  
+  Coup c(j1,0,0);
+
+  Coup coup_repere_j1(j1,0,0);
+  Coup* ptr_coup_repere_j1=&coup_repere_j1;
+  Coup coup_origine_j1(j1,0,0);
+  Coup* ptr_coup_origine_j1=&coup_origine_j1;
+  
+  int sav_dirXj1=0;
+  int* ptr_sav_dirXj1=&sav_dirXj1;
+  int sav_dirYj1=0;
+  int* ptr_sav_dirYj1=&sav_dirYj1;
+  bool mode_chasse_j1=false;
+  bool* ptr_mode_chasse_j1=&mode_chasse_j1;
+
+  
+  Coup coup_repere_j2(j2,0,0);
+  Coup* ptr_coup_repere_j2=&coup_repere_j2;
+  Coup coup_origine_j2(j2,0,0);
+  Coup* ptr_coup_origine_j2=&coup_origine_j2;
+  
+  int sav_dirXj2=0;
+  int* ptr_sav_dirXj2=&sav_dirXj2;
+  int sav_dirYj2=0;
+  int* ptr_sav_dirYj2=&sav_dirYj2;
+  bool mode_chasse_j2=false;
+  bool* ptr_mode_chasse_j2=&mode_chasse_j2;
+  
+  while(flotte_j1.size()!=0 && flotte_j2.size()!=0){
     if(tour%2==0){
       std::cout << "Coup du joueur 1 : " << std::endl;
-      Coup c = c.CreerCoup(j1,plat_joueur2);
-      PlacerCoup(c,0);
-      int indice = UpdateEtatBateau(c,flotte_j2);
+
+      
+      c.CreerCoup(j1,ptr_coup_origine_j1,ptr_coup_repere_j1,ptr_sav_dirXj1,
+		  ptr_sav_dirYj1,ptr_mode_chasse_j1,plat_joueur2);
+      PlacerCoup(c);
+      
+      int indice = UpdateEtatBateau(c);
       //on enregistre le coup precedent
       //coup_prec_j1 = c;
       if(indice >=0){
+	if(*ptr_mode_chasse_j1==false){//si touché alors on passe en mode chasse
+	  *ptr_mode_chasse_j1=true;
+	  coup_origine_j1=c;
+	}
+	coup_repere_j1=c;
 	flotte_j2[indice]->_nbTouche++;
 	if(flotte_j2[indice]->_nbTouche >= flotte_j2[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
-	  succes_tir_j1=false;
+	  *ptr_mode_chasse_j1=false;//on sort du mode chasse
 	  int decal_x;
 	  int decal_y;
 	  switch(flotte_j2[indice]->_dir){
@@ -113,26 +135,42 @@ void Plateau::LancerPartie(){
 	    break;
 	  }
 	  for(int r=0; r<flotte_j2[indice]->_longueur; r++){
-	    plat_joueur2[ flotte_j2[indice]->_x + flotte_j2[indice]->_y*getTaille()
-			  + decal_x*r + decal_y*r*getTaille()]._state=COULE;
+	    plat_joueur2[flotte_j2[indice]->_x + flotte_j2[indice]->_y*getTaille()
+			 + decal_x*r + decal_y*r*getTaille()]._state=COULE;
 	  }
 	  flotte_j2.erase(flotte_j2.begin() + indice);
 	}
       }
+      else{
+	coup_repere_j1=coup_origine_j1;
+      }
     }
     else{
       std::cout << "Coup du joueur 2 : " << std::endl;
-      Coup c = c.CreerCoup(j2,plat_joueur1);
-      PlacerCoup(c,1);
+      
+      if(global_difficulte<2){
+	c.CreerCoup(j2,ptr_coup_origine_j2,ptr_coup_repere_j2,ptr_sav_dirXj2,
+		  ptr_sav_dirYj2,ptr_mode_chasse_j2,plat_joueur1);
+      }
+      else{
+	c = getMoveMinMax();
+      }
+      PlacerCoup(c);
       //On enregistre le coup precedent
-      //coup_prec_j2 = c;
-      int indice = UpdateEtatBateau(c,flotte_j1);
+      //coup_prec_j2=c;
+      int indice = UpdateEtatBateau(c);
       if(indice >=0){
+	//TOUCHE
+	if(*ptr_mode_chasse_j2==false){//si touché alors on passe en mode chasse
+	  *ptr_mode_chasse_j2=true;
+	  coup_origine_j2=c;
+	  
+	}
+	coup_repere_j2=c;
 	flotte_j1[indice]->_nbTouche++;
 	if(flotte_j1[indice]->_nbTouche >= flotte_j1[indice]->_longueur){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
-	  succes_tir_j2=false;
-	  //on lache prise qu'une fois le bateau coulé
+	  *ptr_mode_chasse_j2=false;//on sort du mode chasse
 	  int decal_x;
 	  int decal_y;
 	  switch(flotte_j1[indice]->_dir){
@@ -160,8 +198,10 @@ void Plateau::LancerPartie(){
 	  flotte_j1.erase(flotte_j1.begin() + indice);
 	}
       }
+      else{
+	coup_repere_j2=coup_origine_j2;
+      }
     }
-    
     tour++;
     tour%=2;
     afficher_plateau_console();
@@ -176,12 +216,10 @@ void Plateau::LancerPartie(){
   }
 }
 
-
-void Plateau::PlacerCoup(Coup c,int tour){
-  if(tour%2==0){
+void Plateau::PlacerCoup(Coup c){
+  if(c.joueur._id%2==0){
     if(plat_joueur2[c._px + c._py*getTaille()]._state == BATEAU){
       plat_joueur2[c._px + c._py*getTaille()]._state = TOUCHE;
-      succes_tir_j1=true;
     }
     else{
       plat_joueur2[c._px + c._py*getTaille()]._state = RATE;
@@ -190,7 +228,7 @@ void Plateau::PlacerCoup(Coup c,int tour){
   else{
     if(plat_joueur1[c._px + c._py*getTaille()]._state == BATEAU){
       plat_joueur1[c._px + c._py*getTaille()]._state = TOUCHE;
-      succes_tir_j2=true;
+      
     }
     else{
       if(plat_joueur1[c._px + c._py*getTaille()]._state == VIDE){
@@ -199,6 +237,7 @@ void Plateau::PlacerCoup(Coup c,int tour){
     }
   }
 }
+
 
 
 //initialise le plateau ( toutes les cases sont vides )
@@ -218,33 +257,63 @@ void Plateau::initialiser(){
   }
 }
 
-int Plateau::UpdateEtatBateau(Coup c,std::vector<Bateau*> B){
-  for(unsigned int i=0; i<B.size() ; i++){
-    int decal_x=0;
-    int decal_y=0;
-    switch(B[i]->_dir){
-    case NORD :
-      decal_x=0;
-      decal_y=-1;
-      break;
-    case SUD :
-      decal_x=0;
-      decal_y=1;
-      break;
-    case EST :
-      decal_x = 1;
-      decal_y=0;
-      break;
-    case OUEST :
-      decal_x=-1;
-      decal_y=0;
-      break;
+int Plateau::UpdateEtatBateau(Coup c){
+  if(c.joueur._id%2==0){
+    for(unsigned int i=0; i<flotte_j2.size() ; i++){
+      int decal_x=0;
+      int decal_y=0;
+      switch(flotte_j2[i]->_dir){
+      case NORD :
+	decal_x=0;
+	decal_y=-1;
+	break;
+      case SUD :
+	decal_x=0;
+	decal_y=1;
+	break;
+      case EST :
+	decal_x = 1;
+	decal_y=0;
+	break;
+      case OUEST :
+	decal_x=-1;
+	decal_y=0;
+	break;
+      }
+      for(int j=0;j<flotte_j2[i]->_longueur ; j++){
+	if(flotte_j2[i]->_x + decal_x*j == c._px && flotte_j2[i]->_y +decal_y*j == c._py){
+	  return i;
+	}
+      }
     }
-    
-    for(int j=0;j<B[i]->_longueur ; j++){
-      //Il verifie toujours la meme case ( utiliser decalage x
-      if(B[i]->_x + decal_x*j == c._px && B[i]->_y +decal_y*j == c._py){
-	return i;
+  }
+  else{
+    for(unsigned int i=0; i<flotte_j1.size() ; i++){
+      int decal_x=0;
+      int decal_y=0;
+      switch(flotte_j1[i]->_dir){
+      case NORD :
+	decal_x=0;
+	decal_y=-1;
+	break;
+      case SUD :
+	decal_x=0;
+	decal_y=1;
+	break;
+      case EST :
+	decal_x = 1;
+	decal_y=0;
+	break;
+      case OUEST :
+	decal_x=-1;
+	decal_y=0;
+	break;
+      }
+      for(int j=0;j<flotte_j1[i]->_longueur ; j++){
+	//Il verifie toujours la meme case ( utiliser decalage x
+	if(flotte_j1[i]->_x + decal_x*j == c._px && flotte_j1[i]->_y +decal_y*j == c._py){
+	  return i;
+	}
       }
     }
   }
@@ -275,7 +344,7 @@ void Plateau::afficher_plateau_console(){
       std::cout << " T ";
       break;
     case BATEAU :
-      std::cout << " B " ; // On met a V pour cacher les bateaux ennemis
+      std::cout << " . " ; // On met a . pour cacher les bateaux ennemis
       break;
     case COULE :
       std::cout << " C " ;
@@ -308,12 +377,13 @@ void Plateau::afficher_plateau_console(){
       case COULE :
 	std::cout << " C " ;
 	break;	
-    }
+      }
       if(i%getTaille()==getTaille()-1){
 	std::cout << std::endl;
       }
   }
 }
+
 
 //-----PLACER LES BATEAUX
 
@@ -454,7 +524,6 @@ void Plateau::PlacerBateau(Joueur joueur){
        }
      }
    }
-    
     std::cout << "Bateau n° " << j+1 << " a ete place en " << posX << " , " << posY <<
       " et s'etend jusqu'en " << posX + decalage_x*(lon-1) << " , " << posY + decalage_y*(lon-1) << std::endl;
 
@@ -470,14 +539,12 @@ void Plateau::PlacerBateau(Joueur joueur){
 	plat_joueur2[posX +   (posY*getTaille())  +   decalage_y*getTaille()*k  + decalage_x*k  ]._state = BATEAU;
       }
     }
-    
-  
     afficher_plateau_console();
 
   }//fin du for =>passage a l'iteration suivante pour le bateau suivant
-
   //---FIN DU PLACEMENT DE LA FLOTTE DU JOUEUR 1
 }
+
 
 
 bool Plateau::verification_placement_bateau(int x, int y, int taille,
@@ -490,11 +557,129 @@ bool Plateau::verification_placement_bateau(int x, int y, int taille,
       std::cout << "Erreur vous sortez du plateau" << std::endl;
       return false;
     }
-    if(C[  x +y*getTaille() +   decalage_y*getTaille()*k + decalage_x*k ]._state ==BATEAU){
+    if(C[  x +y*getTaille() +  decalage_y*getTaille()*k + decalage_x*k ]._state ==BATEAU){
       std::cout << "Erreur un bateau gêne le placement" << std::endl;
       return false;
     }
   }
   return true;
 }
+
+
+
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+
+
+float Plateau::Eval(Coup c){
+  int score_proba=0;
+
+  if(plat_joueur1[c._px+c._py*getTaille()]._state ==BATEAU ){
+    score_proba+=500;
+  }
+  
+  return score_proba;
+}
+
+
+Coup Plateau::getMoveMinMax(){
+
+  Joueur j(1,IA);
+  Coup m(j,1,1);
+  
+  std::cout<< "entree dans l'ia MinMax " << std::endl;
+  getMoveMinMaxAux(j, 0, 1,m); // profondeur
+  std::cout << "meilleur coup , x " << m._px << " y : " << m._py  << std::endl;
+  return m;
+}
+
+std::vector<Coup> Plateau::coupJouables(Joueur j){
+  std::vector<Coup> coups;
+  //std::cout << "les coups possibles : "  <<std::endl;
+  if(j._id%2==0){
+    for ( int i=0; i<getTaille()*getTaille(); i++){
+      if(plat_joueur2[i]._state == VIDE || plat_joueur2[i]._state == BATEAU ){
+	Coup c(j,plat_joueur2[i]._y,plat_joueur2[i]._x);
+	//std::cout <<"x " << c._px << " y " << c._py  << " , ";
+	coups.push_back(c);
+      }
+    }
+  }
+  else{
+    for (int i=0; i<getTaille()*getTaille(); i++){
+      if(plat_joueur1[i]._state == VIDE || plat_joueur1[i]._state == BATEAU ){
+	
+	Coup c(j,plat_joueur1[i]._y,plat_joueur1[i]._x); //INVERSER
+	//std::cout <<"x " << c._px << " y " << c._py  << " , ";
+	coups.push_back(c);
+      }
+    }
+  }
+  //std::cout << std::endl;
+  return coups;
+}
+
+
+void Plateau::doMove(Joueur j,Coup m) {
+  Coup c(j,m._px,m._py);
+  PlacerCoup(c);
+  //int indice = UpdateEtatBateau(c);
+}
+
+
+float Plateau::getMoveMinMaxAux(Joueur j, int depth, int depthMax, Coup &m){
+  //std::cout << "Depth:" << depth << ", Max: " << depthMax << std::endl;
+  if(depth==depthMax){
+    return Eval(m);
+  }
+  float meilleur_score;
+  
+  std::vector<Coup> jouables1 = coupJouables(j);
+  //std::cout <<"N Possible Moves: "  << jouables1.size() << std::endl;
+  
+  if(depth%2==0){
+    meilleur_score=-1000;//-infini
+  }
+  else{
+    meilleur_score=1000;
+  }
+  for (unsigned int i=0; i<jouables1.size();i++){
+    Plateau pl(*this);
+    pl.doMove(j,jouables1[i]);
+    //std::cout << " ( " << jouables1[i]._py << "," << jouables1[i]._px <<")" << std::endl;
+    float score = pl.getMoveMinMaxAux(Joueur(1- j._id, 1 - j._id),depth+1,depthMax,m)
+      +Eval(jouables1[i]);
+    if(depth%2==0){
+      //std::cout << "score : " << score << " meilleur score " << meilleur_score << std::endl;
+      if(score > meilleur_score){
+	meilleur_score = score;
+	m = jouables1[i];
+      }
+    }
+    else{
+      if(score < meilleur_score) {
+	meilleur_score = score;
+	m = jouables1[i];
+      }
+    }
+    
+  }
+  return meilleur_score;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
