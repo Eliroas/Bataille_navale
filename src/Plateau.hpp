@@ -4,8 +4,11 @@
 #include <vector>
 #include "Bateau.hpp"
 #include "Coup.hpp"
+
+/* ils sont appelés dans coup.hpp
 #include "Joueur.hpp"
 #include "globales.hpp"
+*/
 
 class Plateau{
 public:
@@ -17,7 +20,9 @@ public:
   
   Plateau(int taille);
   void LancerPartie();
-  void initialiser() ;
+  void initialiser();
+
+  bool conditionVictoire();
   int getTaille() const;
   void afficher_plateau_console();
   
@@ -28,13 +33,31 @@ public:
 				     std::vector<Case> C);
 
 
-  void PlacerCoup(Coup c, int tour);
- 
+  void PlacerCoup(Coup c);
+  int UpdateEtatBateau(Coup c);
 
-  int UpdateEtatBateau(Coup c,std::vector<Bateau*> B);
-
+  Coup getMoveMinMax();
+  float getMoveMinMaxAux(Joueur j, int depth, int depthmax, Coup &m);
+  
+  float Eval(Coup c);
+  std::vector<Coup> coupJouables(Joueur j);
+  void doMove(Joueur j,Coup m);
   
 };
+
+
+extern Coup coup_origine_j1;
+extern Coup coup_repere_j1;
+extern int sav_dirXj1;
+extern int sav_dirYj1;
+  
+extern Coup coup_repere_j2;
+extern Coup coup_origine_j2;
+extern int sav_dirXj2;
+extern int sav_dirYj2;
+
+extern bool mode_chasse_j1;
+extern bool mode_chasse_j2;
 
 #endif
 
