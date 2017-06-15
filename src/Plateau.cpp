@@ -47,7 +47,8 @@ void Plateau::LancerPartie(){
     type_j1=IA;
   }
 
-  std::cout<< "Intelligence ia (0,1,2) : " <<std::endl;
+  std::cout<< "Intelligence ia (1 : Contre un comportement presque Humain) : " <<std::endl;
+  std::cout<< "Intelligence ia (2 : Contre min-max (Soyez pret. Il ne rigole pas !)) : " <<std::endl;
   std::cin >> global_difficulte;
 
   Joueur j1(0,type_j1);
@@ -111,7 +112,7 @@ void Plateau::LancerPartie(){
 	}
 	coup_repere_j1=c;
 	flotte_j2[indice]->_nbTouche++;
-	if(flotte_j2[indice]->_nbTouche >= flotte_j2[indice]->_longueur){
+	if(flotte_j2[indice]->_nbTouche >= flotte_j2[indice]->getTaille()){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
 	  *ptr_mode_chasse_j1=false;//on sort du mode chasse
 	  int decal_x;
@@ -134,8 +135,8 @@ void Plateau::LancerPartie(){
 	    decal_y=0;
 	    break;
 	  }
-	  for(int r=0; r<flotte_j2[indice]->_longueur; r++){
-	    plat_joueur2[flotte_j2[indice]->_x + flotte_j2[indice]->_y*getTaille()
+	  for(int r=0; r<flotte_j2[indice]->getTaille(); r++){
+	    plat_joueur2[flotte_j2[indice]->getAbscisse() + flotte_j2[indice]->getOrdonnee()*getTaille()
 			 + decal_x*r + decal_y*r*getTaille()]._state=COULE;
 	  }
 	  flotte_j2.erase(flotte_j2.begin() + indice);
@@ -168,7 +169,7 @@ void Plateau::LancerPartie(){
 	}
 	coup_repere_j2=c;
 	flotte_j1[indice]->_nbTouche++;
-	if(flotte_j1[indice]->_nbTouche >= flotte_j1[indice]->_longueur){
+	if(flotte_j1[indice]->_nbTouche >= flotte_j1[indice]->getTaille()){
 	  std::cout << "On A COULE UN BATEAU" << std::endl;
 	  *ptr_mode_chasse_j2=false;//on sort du mode chasse
 	  int decal_x;
