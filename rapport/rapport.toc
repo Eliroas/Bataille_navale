@@ -1,0 +1,20 @@
+\select@language {french}
+\contentsline {paragraph}{\IeC {\'E}tudiants : Quentin Coloos - Alexandre Tholliez - Thomas Prunier - Beno\IeC {\^\i }t Verhaghe }{1}{Doc-Start}
+\contentsline {paragraph}{Encadrant : Ahmad Mazyad}{1}{Doc-Start}
+\contentsline {paragraph}{Date de d\IeC {\'e}but : 29 mai 2017 }{1}{Doc-Start}
+\contentsline {paragraph}{Date de fin : 16 juin 2017 }{1}{Doc-Start}
+\contentsline {paragraph}{Objet du projet : Cr\IeC {\'e}ation d'un jeux vid\IeC {\'e}o avec une Intelligence Artificielle }{1}{Doc-Start}
+\contentsline {section}{\numberline {1}Pr\IeC {\'e}sentation du projet}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Analyse de la demande}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Contexte}{2}{subsection.1.2}
+\contentsline {paragraph}{Besoins et priorit\IeC {\'e}s\\}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Sp\IeC {\'e}cifications}{2}{subsection.1.3}
+\contentsline {section}{\numberline {2}R\IeC {\'e}alisation}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Pr\IeC {\'e}sentation }{4}{subsection.2.1}
+\contentsline {paragraph}{}{5}{subsection.2.1}
+\contentsline {section}{\numberline {3}Bilan}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}D\IeC {\'e}roulement du projet}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}R\IeC {\'e}alisation des objectifs }{6}{subsection.3.2}
+\contentsline {paragraph}{}{6}{subsection.3.2}
+\contentsline {paragraph}{}{6}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Conclusion pour les projets futurs}{7}{subsection.3.3}

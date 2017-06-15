@@ -6,3 +6,6 @@ Joueur::Joueur(int id,int type):
   _type(type)
 {}
 
+int Joueur::getId(){
+  return _id;
+}

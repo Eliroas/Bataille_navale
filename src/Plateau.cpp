@@ -217,7 +217,7 @@ void Plateau::LancerPartie(){
 }
 
 void Plateau::PlacerCoup(Coup c){
-  if(c.joueur._id%2==0){
+  if(c.joueur.getId()%2==0){
     if(plat_joueur2[c._px + c._py*getTaille()]._state == BATEAU){
       plat_joueur2[c._px + c._py*getTaille()]._state = TOUCHE;
     }
@@ -258,7 +258,7 @@ void Plateau::initialiser(){
 }
 
 int Plateau::UpdateEtatBateau(Coup c){
-  if(c.joueur._id%2==0){
+  if(c.joueur.getId()%2==0){
     for(unsigned int i=0; i<flotte_j2.size() ; i++){
       int decal_x=0;
       int decal_y=0;
