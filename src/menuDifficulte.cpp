@@ -15,7 +15,7 @@ menuDifficulte::menuDifficulte(){
   _boutonNormal.loadFromFile("../img/boutonNormal.png");
   _spriteNormal.setTexture(_boutonNormal);
 
-  // declaration des coordonnées des boutons
+   // Recuperation de la taille de l'image
   _Fx = _boutonFacile.getSize().x;
   _Fy = _boutonFacile.getSize().y;
   _Nx = _boutonNormal.getSize().x;

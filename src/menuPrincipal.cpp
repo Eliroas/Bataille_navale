@@ -16,7 +16,7 @@ menuPrincipal::menuPrincipal(){
   _boutonQuitter.loadFromFile("../img/boutonQuitter.png");
   _spriteQuitter.setTexture(_boutonQuitter);
 
-  // declaration des coordonnées des boutons
+  // Recuperation de la taille de l'image
   _Jx = _boutonJouer.getSize().x;
   _Jy = _boutonJouer.getSize().y;
   _Qx = _boutonQuitter.getSize().x;

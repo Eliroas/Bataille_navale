@@ -4,7 +4,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "Case.hpp"
+#include "globales.hpp"
+
 
 #define z 450
 
@@ -24,7 +25,15 @@ private:
   sf::Texture _imageGrille;
   sf::Sprite _spriteGrille;
   std::vector <Cases> _Grille;
+  std::vector <Bateaux> _Boats;
 
+  sf::RectangleShape _rect;
+  sf::RectangleShape _bateau1;
+  sf::RectangleShape _bateau2;
+  sf::RectangleShape _bateau3;
+  sf::RectangleShape _bateau4;
+  sf::RectangleShape _bateau5;
+  
   sf::Texture _imageValider;
   sf::Sprite _spriteValider;
   float _Vx, _Vy;
@@ -34,7 +43,7 @@ private:
 
   sf::Texture _imageInstructions;
   sf::Sprite _spriteInstructions;
-
+  
   sf::Event _event;
   sf::Vector2i _localPosition;
 };
